@@ -2,6 +2,8 @@
 
 import importlib
 
+from loguru_config.modules.errors import InvalidSinkCallable
+
 
 def _parse_activations(loggers):
     enable_logs = loggers["enable"].split(",")
@@ -65,7 +67,10 @@ def _get_func_from_str(string):
             module_str = ".".join(chunks[:-1])
 
         module = importlib.import_module(module_str)
-        callable_obj = getattr(module, chunks[-1])
+        try:
+            callable_obj = getattr(module, chunks[-1])
+        except AttributeError:
+            raise InvalidSinkCallable(string)
     else:
         raise ValueError("Path string ill-formed (begin with '$')")
 
