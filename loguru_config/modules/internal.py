@@ -1,11 +1,13 @@
 """Module internal utilities"""
 
 import importlib
+from json import loads
 
 from loguru_config.modules.errors import InvalidSinkCallable
 
 
 def _parse_activations(loggers):
+
     enable_logs = loggers["enable"].split(",")
     disable_logs = loggers["disable"].split(",")
 
@@ -81,6 +83,8 @@ def _parse_filter(filt):
     if filt:
         if filt.startswith("$"):
             filt_handler = _get_func_from_str(filt)
+        elif filt.startswith("{"):
+            filt_handler = loads(filt)
         else:
             filt_handler = filt
     else:

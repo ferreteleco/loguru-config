@@ -20,3 +20,6 @@ Currently, it supports:
 - [ ] Provide support for lambda functions
 - [ ] Provide support for addition of custom logging levels
 - [ ] Convert routines to parser class
+- [ ] Add defaults to common sink keys (f.ex. format)
+- [ ] Support patcher attribute
+- [ ] Adds exception management
